@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
 const connections = {}; // Cache for dynamic connections
 
-const centralDb = mongoose.createConnection(process.env.MONGODB_URI_CENTRAL, {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
+const centralDb = mongoose.createConnection(
+  `mongodb+srv://parthsudani277:aG5qdtM1ZtdykxUx@cluster0.wu3lxbc.mongodb.net/library`,
+  {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  }
+);
+centralDb.once("open", () => {
+  console.log("Successfully connected to the central database");
 });
-
 function getLibraryConnection(dbName) {
   if (!connections[dbName]) {
     connections[dbName] = mongoose.createConnection(
-      `mongodb://localhost:27017/${dbName}`,
+      `mongodb+srv://parthsudani277:aG5qdtM1ZtdykxUx@cluster0.wu3lxbc.mongodb.net/library`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
